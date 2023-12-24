@@ -19,19 +19,30 @@ public class SpawnElementsRandomly : MonoBehaviour
             ChildLocations.Add(child);
         }
 
+        SpawnElements();
+    }
+
+
+    public void SpawnElements()
+    {
         int index = 0;
         for (int i = 0; i < ChildLocations.Count && index < Elements.Count; i++)
         {
             ElementScirptableObject elementSO = Elements[index];
 
-            // Instantiate the GameObject associated with the ScriptableObject
-            Instantiate(elementSO.ElementGameObject, ChildLocations[i].position, Quaternion.identity);
-            Instantiate(elementSO.ParticleWaypoint, ChildLocations[i].position, Quaternion.identity);
+            // Instantiate the GameObject and then set its tag
+            GameObject instantiatedElement = Instantiate(elementSO.ElementGameObject, ChildLocations[i].position, Quaternion.identity);
+            instantiatedElement.tag = elementSO.ElementType.ToString();
 
+            // Instantiate the ParticleWaypoint (if applicable)
+            Instantiate(elementSO.ParticleWaypoint, ChildLocations[i].position, Quaternion.identity);
 
             index++;
         }
     }
+
+
+
 }
 
 

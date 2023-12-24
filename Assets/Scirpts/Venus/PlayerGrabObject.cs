@@ -6,9 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerGrabObject : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Camera camera;
-
     public Transform PlayerTrans;
     public float range = 3f;
     public float go = 100f;
@@ -16,9 +14,8 @@ public class PlayerGrabObject : MonoBehaviour
     public GameObject heldObject;
     public bool isObjectHeld = false;
 
+    public LayerMask pickableLayer; // Define the layer mask for pickable objects
 
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -32,10 +29,7 @@ public class PlayerGrabObject : MonoBehaviour
 
         if (isObjectHeld)
         {
-            // Calculate the new position in front of the player
             Vector3 newPosition = camera.transform.position + camera.transform.forward * go;
-
-            // Move the held object using Rigidbody
             Rigidbody rb = heldObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -44,53 +38,39 @@ public class PlayerGrabObject : MonoBehaviour
         }
     }
 
-
-
     private void StartPickup()
     {
-        if (isObjectHeld) return; // Skip if already holding an object
+        if (isObjectHeld) return;
 
         RaycastHit hit;
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, range))
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, range, pickableLayer))
         {
-            if (hit.transform.CompareTag("Pickable"))
-            {
-                heldObject = hit.transform.gameObject;
-                isObjectHeld = true;
+            heldObject = hit.transform.gameObject;
+            isObjectHeld = true;
 
-                Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    rb.useGravity = false;
-                    rb.constraints = RigidbodyConstraints.FreezeRotation;
-                    rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-                }
+            Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.useGravity = false;
+                rb.constraints = RigidbodyConstraints.FreezeRotation;
+                rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             }
         }
     }
 
-
     private void Drop()
     {
-        if (!isObjectHeld) return; // Skip if no object is held
+        if (!isObjectHeld) return;
 
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.useGravity = true;
-            rb.constraints = RigidbodyConstraints.None; // Remove constraints
+            rb.constraints = RigidbodyConstraints.None;
         }
 
         heldObject = null;
         isObjectHeld = false;
     }
-
-
-
-
-
-
-
 }
-
 
