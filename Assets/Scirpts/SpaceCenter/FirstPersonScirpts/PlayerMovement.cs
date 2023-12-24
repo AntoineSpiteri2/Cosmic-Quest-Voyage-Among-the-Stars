@@ -1,30 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-
     public float moveSpeed;
-
-
     public float groundDrag;
 
-    [Header("Ground check")]
+    [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatisGround;
     public bool grounded;
 
+    public Transform orientation;
 
-    public Transform orirntation;
+    private float horizontalInput;
+    private float verticalInput;
 
-    float HorizontalInput;
-    float VerticalInput;
+    private Vector3 moveDirection;
+    private Rigidbody rb;
 
-    Vector3 moveDirection;
-    Rigidbody rb;
+    // Variable for maximum velocity
+    public float maxVelocity = 10f;
 
     private void Start()
     {
@@ -40,7 +36,8 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
         {
             rb.drag = groundDrag;
-        } else
+        }
+        else
         {
             rb.drag = 0;
         }
@@ -49,25 +46,28 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+        LimitVelocity();
     }
 
     private void MyInput()
     {
-        HorizontalInput = Input.GetAxisRaw("Horizontal");
-        VerticalInput = Input.GetAxisRaw("Vertical");
-
-
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
     }
-
-
-
 
     private void MovePlayer()
     {
-        moveDirection = orirntation.forward * VerticalInput + orirntation.right * HorizontalInput;
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
     }
 
-
+    // Limit the velocity to prevent excessive speed
+    private void LimitVelocity()
+    {
+        if (rb.velocity.magnitude > maxVelocity)
+        {
+            rb.velocity = rb.velocity.normalized * maxVelocity;
+        }
+    }
 }

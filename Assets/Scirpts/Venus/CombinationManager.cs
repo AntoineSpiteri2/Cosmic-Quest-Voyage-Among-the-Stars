@@ -32,6 +32,7 @@ public class CombinationManager : MonoBehaviour
         } else
         {
             Destroy(other.gameObject);
+            Debug.Log("wrong combintion");
             Waypaoints.SpawnElements();
         }
     }
