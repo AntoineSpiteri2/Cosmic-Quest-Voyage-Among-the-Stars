@@ -58,38 +58,42 @@ public class SpaceShipMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            float rotx = Input.GetAxis("Mouse X") * rotSpeed * Mathf.Deg2Rad;
-            float roty = Input.GetAxis("Mouse Y") * rotSpeed * Mathf.Deg2Rad;
+            float rotx = Input.GetAxis("Mouse X") * rotSpeed * Time.deltaTime;
+            float roty = Input.GetAxis("Mouse Y") * rotSpeed * Time.deltaTime;
 
-            targetRotation *= Quaternion.Euler(roty, rotx, 0);
-            targetRotation = ClampRotationAroundXAndZAxis(targetRotation);
+            Quaternion deltaRotation = Quaternion.Euler(-roty, rotx, 0);
+            targetRotation = Quaternion.Slerp(targetRotation, targetRotation * deltaRotation, rotationSmoothness);
         }
         else if (Input.GetKey(KeyCode.R))
         {
             targetRotation = Quaternion.identity;
         }
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSmoothness * Time.deltaTime);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSmoothness * Time.deltaTime);
     }
 
-    Quaternion ClampRotationAroundXAndZAxis(Quaternion q) //basically lets the limits that player can move in the x y and z axis in terms of rotation as to make it less funky
-    {
-        q.eulerAngles = new Vector3(ClampAngle(q.eulerAngles.x, minXRotation, maxXRotation),
-                                    q.eulerAngles.y,
-                                    ClampAngle(q.eulerAngles.z, minZRotation, maxZRotation));
-        return q;
-    }
 
-    float ClampAngle(float angle, float min, float max)
-    {
-        angle = NormalizeAngle(angle);
-        return Mathf.Clamp(angle, min, max);
-    }
+    // not reccommened as makes moving rotation wanky allot 
 
-    float NormalizeAngle(float angle)
-    {
-        while (angle > 180) angle -= 360;
-        while (angle < -180) angle += 360;
-        return angle;
-    }
+    //Quaternion ClampRotationAroundXAndZAxis(Quaternion q)
+    //{
+    //    q.eulerAngles = new Vector3(ClampAngle(q.eulerAngles.x, minXRotation, maxXRotation),
+    //                                q.eulerAngles.y,
+    //                                ClampAngle(q.eulerAngles.z, minZRotation, maxZRotation));
+    //    return q;
+    //}
+
+    //float ClampAngle(float angle, float min, float max)
+    //{
+    //    angle = NormalizeAngle(angle);
+    //    return Mathf.Clamp(angle, min, max);
+    //}
+
+    //float NormalizeAngle(float angle)
+    //{
+    //    while (angle > 180) angle -= 360;
+    //    while (angle < -180) angle += 360;
+    //    return angle;
+    //}
 
 }

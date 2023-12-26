@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Card : MonoBehaviour
@@ -34,19 +35,17 @@ public class Card : MonoBehaviour
     public Material material;
 
 
-    Card THISCARD = null;
-
 
 
 
     private void Start()
     {
         this.gameObject.name = cardType.ToString();
-        THISCARD = gameObject.GetComponent<Card>();
     }
 
 
-    public void SetCardImage() {
+    public void SetCardImage()
+    {
 
         Renderer renderer = GetComponent<Renderer>();
 
@@ -82,94 +81,128 @@ public class Card : MonoBehaviour
 
     }
 
-   void OnMouseDown()
-{
-    if (!isClicked && !beingclicked && !Card.isChecking)
+
+
+
+    void OnMouseDown()
     {
-        beingclicked = true;
-        SetCardImage();
-        isClicked = true;
-
-        // Check the number of cards that are clicked and not part of a pair
-        var clickedCards = FindObjectsOfType<Card>().Count(c => c.isClicked && !c.isaPair);
-
-        if (clickedCards == 1)
+        if (!isClicked && !beingclicked && !Card.isChecking)
         {
-            // Only one card is clicked, so allow clicking another card
-            Card.isChecking = false;
-        }
-        else if (clickedCards == 2)
-        {
-            // Two cards are clicked, begin checking for a match
-            Card.isChecking = true;
-            StartCoroutine(CheckForMatch());
-        }
-    }
-}
-IEnumerator CheckForMatch()
-{
-    yield return new WaitForSeconds(1); // Wait for a short duration to allow the player to see the second card
+            beingclicked = true;
+            SetCardImage();
+            isClicked = true;
 
-    bool matchFound = false;
-    Card otherCard = null;
+            // Check the number of cards that are clicked and not part of a pair
+            var clickedCards = FindObjectsOfType<Card>().Count(c => c.isClicked && !c.isaPair);
 
-    // Check for matching card
-    foreach (Transform child in gameObject.transform.parent.transform)
-    {
-        if (child.gameObject.name == gameObject.name && child.gameObject != gameObject)
-        {
-            otherCard = child.gameObject.GetComponent<Card>();
-            if (otherCard != null && otherCard.isClicked)
+            if (clickedCards == 1)
             {
-                matchFound = true;
-                Debug.Log("A match");
-                isaPair = true;
-                otherCard.isaPair = true;
-                break;
+                // Only one card is clicked, so allow clicking another card
+                Card.isChecking = false;
+            }
+            else if (clickedCards == 2)
+            {
+                // Two cards are clicked, begin checking for a match
+                Card.isChecking = true;
+                StartCoroutine(CheckForMatch());
             }
         }
     }
-
-    // If no match found, reset both card states
-    if (!matchFound)
+    IEnumerator CheckForMatch()
     {
-        Debug.Log("Not a match");
-        StartCoroutine(ResetCard());
-        if (otherCard != null)
+        yield return new WaitForSeconds(1); // Wait for a short duration to allow the player to see the second card
+
+        bool matchFound = false;
+        Card otherCard = null;
+
+
+        // Check for matching card
+        foreach (Transform child in gameObject.transform.parent.transform)
         {
-            StartCoroutine(otherCard.ResetCard());
+            if (child.gameObject.name == gameObject.name && child.gameObject != gameObject)
+            {
+                otherCard = child.gameObject.GetComponent<Card>();
+                if (otherCard != null && otherCard.isClicked)
+                {
+                    matchFound = true;
+                    Debug.Log("A match");
+                    isaPair = true;
+                    isClicked = false;
+                    beingclicked = false;
+                    otherCard.isaPair = true;
+                    otherCard.isClicked = false;
+                    otherCard.beingclicked = false;
+                    Card.isChecking = false;
+                    break;
+                }
+            }
+        }
+
+        // If no match found, reset both card states
+        if (!matchFound)
+        {
+            Debug.Log("Not a match");
+            Debug.Log(gameObject.name);
+
+
+            StartCoroutine(ResetCard()); // reset the last clicked card if so 
+
+            foreach (Transform child in gameObject.transform.parent.transform)
+            {
+
+
+                if (child.GetComponent<Card>().isClicked == true && child.GetComponent<Card>().beingclicked == true && child.GetComponent<Card>().isaPair == false)
+                {
+                    Debug.Log("Triggerd");
+                    Debug.Log(child.name);
+                    child.GetComponent<Card>().ResetC(); // reset the  first clicked card
+                }
+            }
+
+
+
+            // Reset the checking flag after the coroutine for resetting cards is started
+            yield return new WaitForSeconds(2); // Wait until the reset is likely done
+            Card.isChecking = false;
+        }
+
+
+      
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+    public void ResetC() // tried calling the coroutine directly but this wont work so this kind of method to fix the issue
+    {
+        StartCoroutine(ResetCard());
+    }
+
+    public IEnumerator ResetCard()
+    {
+        yield return new WaitForSeconds(2); // Wait for a short duration before resetting
+
+        isClicked = false;
+        beingclicked = false;
+        GetComponent<Renderer>().material.mainTexture = null;
+
+        // Only reset the isChecking flag if this card is not a pair
+        if (!isaPair)
+        {
+            isChecking = false;
         }
     }
-
-    // Reset the checking flag after the coroutine for resetting cards is started
-    yield return new WaitForSeconds(2); // Wait until the reset is likely done
-    Card.isChecking = false; 
-}
-
-IEnumerator ResetCard()
-{
-    yield return new WaitForSeconds(2); // Wait for a short duration before resetting
-
-    isClicked = false;
-        Debug.Log(gameObject.name);
-    beingclicked = false;
-    GetComponent<Renderer>().material.mainTexture = null;
-
-    // Only reset the isChecking flag if this card is not a pair
-    if (!isaPair)
-    {
-        isChecking = false; 
-    }
-}
-
-
-
-
-
-
-
-
-
-
 
 }
