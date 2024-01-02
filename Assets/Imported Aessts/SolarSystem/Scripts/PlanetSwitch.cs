@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -20,8 +20,8 @@ public class PlanetSwitch : MonoBehaviour {
 
 	public Light SunLight;
 
-    public Dropdown marsSatellites;
-    public Dropdown jupiterSatellites;
+    public TMPro.TMP_Dropdown marsSatellites;
+    public TMPro.TMP_Dropdown jupiterSatellites;
 
     private RotationAroundPlanet rotationAroundPlaneScript;
 

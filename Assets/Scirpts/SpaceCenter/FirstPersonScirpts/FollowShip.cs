@@ -13,7 +13,6 @@ public class FollowShip : MonoBehaviour
     private void Awake()
     {
         childGameObject = this.gameObject.transform.parent.gameObject;
-        Debug.Log(childGameObject);
     }
 
     void Update()

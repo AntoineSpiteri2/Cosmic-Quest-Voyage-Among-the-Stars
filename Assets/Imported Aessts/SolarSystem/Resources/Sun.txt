@@ -1,26 +1,26 @@
-Equatorial radius TAB 696,342±65 km 
-109 × Earth 
-Equatorial circumference TAB 4.379×106 km 
+Equatorial radius TAB 696,342+65 km 
+109 x Earth 
+Equatorial circumference TAB 4.379x106 km 
 
-Surface area TAB 6.09×1012 km2 
-12,000 × Earth
-Volume TAB 1.41×1018 km3 
-1,300,000 × Earth 
-Mass TAB (1.98855±0.00025)×1030 kg 
-333,000 × Earth 
+Surface area TAB 6.09x1012 km2 
+12,000 x Earth
+Volume TAB 1.41x1018 km3 
+1,300,000 x Earth 
+Mass TAB (1.98855+0.00025)x1030 kg 
+333,000 x Earth 
 Average density TAB 1.408 g/cm3 
-0.255 × Earth 
+0.255 x Earth 
 Center density (modeled) TAB 162.2 g/cm3 
-12.4 × Earth 
+12.4 x Earth 
 Equatorial surface gravity TAB 274.0 m/s2 
-28 × Earth
+28 x Earth
 Escape velocity (from the surface) TAB 617.7 km/s 
-55 × Earth 
-Temperature Center TAB 1.57×107 K 
+55 x Earth 
+Temperature Center TAB 1.57x107 K 
 Photosphere (effective): TAB 5,778 K 
-Corona: ˜5×106 K 
-Luminosity (Lsol) TAB 3.846×1026 W 
-Age TAB ˜4.6 billion years 
+Corona: ~5x106 K 
+Luminosity (Lsol) TAB 3.846x1026 W 
+Age TAB ~4.6 billion years 
 
 The Sun (in Greek: Helios, in Latin: Sol[a]) 
  is the star at the center of the Solar System 

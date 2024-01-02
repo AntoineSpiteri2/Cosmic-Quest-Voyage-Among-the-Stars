@@ -8,11 +8,11 @@ Average orbital speed TAB 2.138 km/s
 Inclination 1.093° TAB (to Mars's equator) 
 Satellite of Mars
 
-Dimensions TAB 27 × 22 × 18 km  
+Dimensions TAB 27 x 22 x 18 km  
 Mean radius TAB 11.2667 km TAB(1.76941 mEarths) 
 Surface area TAB 1548.3 km2 TAB(3.03545 µEarths) 
 Volume TAB 5783.61 km3 TAB (5.33933 nEarths) 
-Mass TAB 1.0659×1016 kg TAB (1.78477 nEarths) 
+Mass TAB 1.0659x1016 kg TAB (1.78477 nEarths) 
 Mean density TAB 1.876 g/cm3 
 Surface gravity  TAB0.0057 m/s2 TAB (581.4 µ g) 
 Escape velocity TAB 11.39 m/s TAB (41 km/h) 
@@ -20,7 +20,7 @@ Rotation period TAB Synchronous
 Equatorial rotation velocity TAB 11.0 km/h (6.8 mph) (at longest axis) 
 Axial tilt TAB 0° 
 Albedo TAB 0.071 
-Temperature TAB ≈ 233 K 
+Temperature TAB = 233 K 
 
 Phobos (systematic designation: Mars I) is the larger and innermost of the two natural satellites of Mars, the other being Deimos.
 Both moons were discovered in 1877 by American astronomer Asaph Hall.

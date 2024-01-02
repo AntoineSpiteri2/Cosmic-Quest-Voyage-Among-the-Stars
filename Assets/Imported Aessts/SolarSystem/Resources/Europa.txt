@@ -10,11 +10,11 @@ Satellite of Jupiter
 
 Physical characteristics  
 
-Mean radius 1560.8±0.5 km (0.245 Earths) 
-Surface area 3.09×107 km2 (0.061 Earths) 
-Volume 1.593×1010 km3 (0.015 Earths) 
-Mass (4.799844±0.000013)×1022 kg (0.008 Earths) 
-Mean density 3.013±0.005 g/cm3 
+Mean radius 1560.8+0.5 km (0.245 Earths) 
+Surface area 3.09x107 km2 (0.061 Earths) 
+Volume 1.593x1010 km3 (0.015 Earths) 
+Mass (4.799844+0.000013)x1022 kg (0.008 Earths) 
+Mean density 3.013+0.005 g/cm3 
 
 Europa Listeni/jʊˈroʊpə/ (Jupiter II), is the sixth-closest moon of Jupiter, and the smallest of its four Galilean satellites, but still the sixth-largest moon in the Solar System.
  Europa was discovered in 1610 by Galileo Galilei and was named after Europa, mother of King Minos of Crete, who became one of Zeus' lovers.

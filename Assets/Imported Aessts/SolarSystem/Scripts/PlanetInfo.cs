@@ -1,15 +1,16 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlanetInfo : MonoBehaviour {
 
     private List<string> infoList { get; set; }
-    public Text contentText;
-    public Text planetNameText;
+    public TMPro.TMP_Text contentText;
+    public TMPro.TMP_Text planetNameText;
     public RectTransform rectTransform;
     public float dpi = 5;
     private PlanetSwitch planetSwitchScript;
@@ -24,6 +25,12 @@ public class PlanetInfo : MonoBehaviour {
 
     public void LoadTextToScrollBar(string name)
     {
+        if (name == "Home")
+        {
+            SceneManager.LoadScene("SpaceCenter");
+
+        }
+
         object resourceFile = Resources.Load(name);
         
         // clear content

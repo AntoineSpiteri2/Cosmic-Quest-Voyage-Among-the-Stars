@@ -21,7 +21,7 @@ public class CrowdSim : MonoBehaviour
     private float currentSpeed; // Current speed value for the Animator
     public float speedSmoothTime = 0.1f; // Time taken to smooth the speed change
 
-
+    public float waypointThreshold = 1.0f; // Distance threshold to change waypoints
 
     void Start()
     {
@@ -39,11 +39,14 @@ public class CrowdSim : MonoBehaviour
         lastStuckCheckTime = Time.time;
         lastPosition = transform.position;
 
-
         animator = GetComponent<Animator>(); // Get the Animator component
         previousPosition = transform.position;
         currentSpeed = 0f;
 
+        agent.stoppingDistance = 0.5f; // Adjust as necessary
+        agent.acceleration = 8; // Adjust as necessary
+        agent.angularSpeed = 120; // Adjust as necessary
+        agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
     }
 
     void GotoRandomWaypoint()
@@ -56,7 +59,8 @@ public class CrowdSim : MonoBehaviour
 
     void Update()
     {
-        if (!agent.pathPending && !agent.hasPath && Vector3.Distance(transform.position, agent.destination) < 1.0f)
+        // Update Agent Position
+        if (!agent.pathPending && !agent.hasPath && Vector3.Distance(transform.position, agent.destination) < waypointThreshold)
         {
             GotoRandomWaypoint();
         }
@@ -94,7 +98,6 @@ public class CrowdSim : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         // Change waypoint on collision
         if (other.gameObject.CompareTag("Agent"))
         {
