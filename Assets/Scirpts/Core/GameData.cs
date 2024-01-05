@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class GameData1 
+public static class GameData
 {
 
     // Player Progress

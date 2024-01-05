@@ -36,9 +36,9 @@ public class GameManager : MonoBehaviour
 
     public void ReducePlayer(int Dmg)
     {
-        GameData1.PlayerHealth -= Dmg;
+        GameData.PlayerHealth -= Dmg;
 
-        if (GameData1.PlayerHealth <= 0)
+        if (GameData.PlayerHealth <= 0)
         {
 
         }
