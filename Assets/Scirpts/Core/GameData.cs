@@ -29,4 +29,7 @@ public static class GameData
 
     // Difficulty Adjustment Data (for GDA)
     public static float DifficultyLevel { get; set; } // Can be a more complex structure depending on GDA implementation
+
+
+    public static string LastScene { get; set; }
 }

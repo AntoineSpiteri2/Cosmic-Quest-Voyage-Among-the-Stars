@@ -14,7 +14,8 @@ public class GoToScene : MonoBehaviour
         SolarSystem,
         SpaceCenter,
         Venus,
-        Main
+        Main,
+        Quit
     }
 
 
@@ -24,6 +25,12 @@ public class GoToScene : MonoBehaviour
 
     public void LoadScene()
     {
+        if (SceneToLoad.ToString() == "Quit")
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+            Application.Quit();
+        }
+
         Cursor.lockState = CursorLockMode.None;
 
         SceneManager.LoadScene(SceneToLoad.ToString());

@@ -1,43 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
 
-    private static GameManager instance;
+    public static GameManager Instance { get; private set; }
 
-    public static GameManager Instance
+    void Awake()
     {
-        get
+        if (Instance == null)
         {
-            if (instance == null)
-            {
-                // Optionally, you can create a new GameObject with GameManager if none exists
-                GameObject gameObject = new GameObject("GameManager");
-                instance = gameObject.AddComponent<GameManager>();
-            }
-            return instance;
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Optional: Keep the GameManager persistent across scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Ensures only one instance of GameManager exists
         }
     }
 
-    private void Awake()
+
+    private void OnEnable()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);  // Ensures that there aren't multiple GameManager instances
-            return;
-        }
-        instance = this;
-        DontDestroyOnLoad(this.gameObject); // Makes the GameManager persist across different scenes
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
+   
 
-    public void ReducePlayer(int Dmg)
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GameData.PlayerHealth = 100;
+    }
+        public void ReducePlayer(int Dmg)
     {
         GameData.PlayerHealth -= Dmg;
 
+        Debug.Log("Player damaged current health: " + GameData.PlayerHealth);
         if (GameData.PlayerHealth <= 0)
         {
 

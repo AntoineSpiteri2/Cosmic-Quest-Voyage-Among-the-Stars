@@ -20,6 +20,9 @@ public class SpaceShipMovement : MonoBehaviour
     public float maxZRotation = 45f; // Maximum rotation angle along the Z-axis
     public float minZRotation = -45f; // Minimum rotation angle along the Z-axis
 
+    public AudioSource audioSource; // Reference to the AudioSource component
+    public AudioClip audioClip;
+
 
 
     void Start()
@@ -49,6 +52,12 @@ public class SpaceShipMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
             currentSpeed *= boostMultiplier;
+
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play(); // Play the audio clip
+
+            }
         }
 
         rb.velocity = moveDirection * currentSpeed * Time.deltaTime;
@@ -73,7 +82,7 @@ public class SpaceShipMovement : MonoBehaviour
     }
 
 
-    // not reccommened as makes moving rotation wanky allot 
+    // not reccommened as makes moving rotation wanky allot  and may ruin players expierce 
 
     //Quaternion ClampRotationAroundXAndZAxis(Quaternion q)
     //{

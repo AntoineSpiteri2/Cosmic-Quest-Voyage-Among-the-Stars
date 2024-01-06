@@ -11,7 +11,7 @@ public class astroid : MonoBehaviour
     public float MinSpeed = 10f;
     public float speed;
 
-    public float Dmg = 10;
+    public int Dmg = 10;
 
 
 
@@ -51,6 +51,15 @@ public class astroid : MonoBehaviour
 
         if (gameObject.transform.position.z < -100 )
         {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            GameManager.Instance.ReducePlayer(Dmg);
             Destroy(gameObject);
         }
     }
