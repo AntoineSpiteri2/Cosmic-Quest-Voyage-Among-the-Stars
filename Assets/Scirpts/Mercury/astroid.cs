@@ -7,17 +7,19 @@ public class astroid : MonoBehaviour
 {
     public Vector3 size;
 
-    public float MaxSpeed = 5f;
-    public float MinSpeed = 10f;
+    public float MaxSpeed;
+    public float MinSpeed;
     public float speed;
 
-    public int Dmg = 10;
-
+    public int Dmg;
 
 
 
     void Start()
     {
+        Dmg = GameData.Astrodmg;
+        MaxSpeed = GameData.MaxSpeedAstro;
+        MinSpeed = GameData.MinSpeedAstro;
         // Randomly scale the asteroid
         Vector3 newScale = new Vector3(Random.Range(50, 100), Random.Range(50, 100), Random.Range(50, 100));
         gameObject.transform.localScale = newScale;

@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class AestroSpawner : MonoBehaviour
 {
-    public float spawnRate = 5f;
+    public float spawnRate;
     public GameObject AestroidGameObject;
     public GameObject Spawner;
 
@@ -15,9 +15,13 @@ public class AestroSpawner : MonoBehaviour
     private float timeSinceLastSpawn; // Timer to track time since last asteroid was spawned
 
 
+ 
+
 
     private void Start()
     {
+        spawnRate = GameData.SpawnRate;
+
         listWaypoints = new List<GameObject>();
 
         int numberofChildGameObjects = Spawner.transform.childCount;

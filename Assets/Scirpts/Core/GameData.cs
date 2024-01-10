@@ -32,4 +32,28 @@ public static class GameData
 
 
     public static string LastScene { get; set; }
+
+    public enum Diffuctly
+    {
+        Easy,
+        Medium,
+        Hard
+    }
+
+    public static string Objective { get; set; }
+
+    public static Diffuctly Difficultysetter { get; set; }
+
+
+
+    //Mercury Level
+
+    public static float SpawnRate {  get; set; }
+    public static int Astrodmg { get; set; }
+
+    public static float MaxSpeedAstro { get; set; }
+    public static float MinSpeedAstro { get; set; }
+
+    // end of it Mercury Level
+
 }

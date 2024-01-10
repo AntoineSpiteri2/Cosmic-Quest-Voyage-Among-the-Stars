@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,6 +15,11 @@ public class waypoint : MonoBehaviour
     public CinemachineVirtualCamera cinemachineCamera;
 
     public GoToScene sceneLoader;
+
+    public GameObject textMsg;
+    public GameObject Objective;
+    public GameObject textmsgpanel;
+
 
 
 
@@ -48,24 +54,70 @@ public class waypoint : MonoBehaviour
 
     void OnMouseDown()
     {
-        string name = gameObject.name;
-        switch (name)
+        string clickedName = gameObject.name;
+        string objectiveText = Objective.GetComponent<TextMeshProUGUI>().text;
+
+        // Special case for "Atmosphere" clicked
+        if (clickedName == "Atmosphere")
+        {
+            clickedName = "Earth";
+        }
+
+        // Check if the clicked planet is the current objective
+        if (clickedName != objectiveText)
+        {
+            SetMessage($"Go Complete {objectiveText} first");
+        }
+        else
+        {
+            LoadNextScene(clickedName);
+        }
+    }
+
+    void LoadNextScene(string currentScene)
+    {
+        SceneManager.LoadScene(currentScene);
+        GameData.LastScene = currentScene;
+        UpdateObjective(currentScene);
+    }
+
+    void UpdateObjective(string completedScene)
+    {
+        string nextObjective = "";
+
+        switch (completedScene)
         {
             case "Mercury":
-                SceneManager.LoadScene("Mercury");
-                break;
-            case "Mars":
-                SceneManager.LoadScene("Mars");
+                nextObjective = "Venus";
                 break;
             case "Venus":
-                SceneManager.LoadScene("Venus");
+                nextObjective = "Earth";
                 break;
-            case "Atmosphere":
-                SceneManager.LoadScene("Earth");
+            case "Earth":
+                nextObjective = "Mars";
                 break;
-            default:
-                Debug.Log("not implemented");
+            case "Mars":
+                nextObjective = "Complete";
                 break;
         }
+
+        if (!string.IsNullOrEmpty(nextObjective))
+        {
+            Objective.GetComponent<TextMeshProUGUI>().text = nextObjective;
+        }
+    }
+
+    // Sets the message and activates the message panel.
+    void SetMessage(string message)
+    {
+        textMsg.GetComponent<TextMeshProUGUI>().text = message;
+        textmsgpanel.SetActive(true);
+        StartCoroutine(ThreeSecondTimer());
+    }
+
+    private IEnumerator ThreeSecondTimer()
+    {
+        yield return new WaitForSeconds(3f);
+        textmsgpanel.SetActive(false);
     }
 }

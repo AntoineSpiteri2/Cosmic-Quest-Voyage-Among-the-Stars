@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class slidingSpaceShip : MonoBehaviour
 {
@@ -40,5 +41,11 @@ public class slidingSpaceShip : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         Vector2 movement = new Vector2(h * speed, rb.velocity.y);
         rb.velocity = Vector3.Lerp(rb.velocity, movement, 2f * Time.deltaTime);
+
+        if (gameObject.transform.position.z >= 70)
+        {
+            Debug.Log("going to solarsystem");
+            SceneManager.LoadScene("SolarSystem");
+        }
     }
 }

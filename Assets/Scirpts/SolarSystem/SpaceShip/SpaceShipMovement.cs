@@ -15,10 +15,10 @@ public class SpaceShipMovement : MonoBehaviour
     private Rigidbody rb;
     public float boostMultiplier = 2f;
 
-    public float maxXRotation = 45f; // Maximum rotation angle along the X-axis
-    public float minXRotation = -45f; // Minimum rotation angle along the X-axis
-    public float maxZRotation = 45f; // Maximum rotation angle along the Z-axis
-    public float minZRotation = -45f; // Minimum rotation angle along the Z-axis
+    //public float maxXRotation = 45f; // Maximum rotation angle along the X-axis
+    //public float minXRotation = -45f; // Minimum rotation angle along the X-axis
+    //public float maxZRotation = 45f; // Maximum rotation angle along the Z-axis
+    //public float minZRotation = -45f; // Minimum rotation angle along the Z-axis
 
     public AudioSource audioSource; // Reference to the AudioSource component
     public AudioClip audioClip;
@@ -75,7 +75,7 @@ public class SpaceShipMovement : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.R))
         {
-            targetRotation = Quaternion.identity;
+            targetRotation = Quaternion.Euler(0,gameObject.transform.rotation.y,0);
         }
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSmoothness * Time.deltaTime);

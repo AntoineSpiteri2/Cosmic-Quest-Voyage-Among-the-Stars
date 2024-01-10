@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,11 +8,20 @@ using UnityEngine.UI;
 
 public class Button : MonoBehaviour
 {
+
+    private TextMeshPro _textMeshPro;
     public enum ActionType
     {
         Start,
         Quit,
-        retry
+        retry,
+        Diffuctly
+    }
+
+    private void Start()
+    {
+        GameData.Difficultysetter = GameData.Diffuctly.Easy;
+        _textMeshPro = gameObject.GetComponentInChildren<TextMeshPro>();
     }
 
     public ActionType actionType;
@@ -35,6 +45,28 @@ public class Button : MonoBehaviour
 
                 Application.Quit();
                 break;
+            case ActionType.Diffuctly:
+                if (GameData.Diffuctly.Easy.ToString() == _textMeshPro.text)
+                {
+                    GameData.Difficultysetter = GameData.Diffuctly.Medium;
+                    _textMeshPro.text = GameData.Difficultysetter.ToString();
+                }
+                else if (GameData.Diffuctly.Medium.ToString() == _textMeshPro.text)
+                {
+                    GameData.Difficultysetter = GameData.Diffuctly.Hard;
+                    _textMeshPro.text = GameData.Difficultysetter.ToString();
+
+
+                }
+                else if (GameData.Diffuctly.Hard.ToString() == _textMeshPro.text)
+                {
+                    GameData.Difficultysetter = GameData.Diffuctly.Easy;
+                    _textMeshPro.text = GameData.Difficultysetter.ToString();
+
+
+                }
+                break;
+
         }
     }
 
