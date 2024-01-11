@@ -28,7 +28,6 @@ public class GoToScene : MonoBehaviour
     {
         if (SceneToLoad.ToString() == "Quit")
         {
-            UnityEditor.EditorApplication.isPlaying = false;
             Application.Quit();
         }
 

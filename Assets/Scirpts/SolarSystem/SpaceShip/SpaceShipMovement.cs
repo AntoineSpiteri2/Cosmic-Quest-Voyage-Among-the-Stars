@@ -15,6 +15,11 @@ public class SpaceShipMovement : MonoBehaviour
     private Rigidbody rb;
     public float boostMultiplier = 2f;
 
+    public bool inverseY = true;
+
+    private bool isBoosting = false; // Flag to track if the ship is boosting
+
+
     //public float maxXRotation = 45f; // Maximum rotation angle along the X-axis
     //public float minXRotation = -45f; // Minimum rotation angle along the X-axis
     //public float maxZRotation = 45f; // Maximum rotation angle along the Z-axis
@@ -53,11 +58,16 @@ public class SpaceShipMovement : MonoBehaviour
         {
             currentSpeed *= boostMultiplier;
 
-            if (!audioSource.isPlaying)
+            // Play the audio only when boost is first initiated
+            if (!isBoosting)
             {
                 audioSource.Play(); // Play the audio clip
-
+                isBoosting = true; // Set the boost flag to true
             }
+        }
+        else
+        {
+            isBoosting = false; // Reset the boost flag when boost key is released
         }
 
 
@@ -72,15 +82,17 @@ public class SpaceShipMovement : MonoBehaviour
             float roty = Input.GetAxis("Mouse Y") * rotSpeed * Time.deltaTime;
 
             Quaternion deltaRotation = Quaternion.Euler(-roty, rotx, 0);
-            targetRotation = Quaternion.Slerp(targetRotation, targetRotation * deltaRotation, rotationSmoothness);
+            targetRotation *= deltaRotation;
+            targetRotation = Quaternion.Normalize(targetRotation); // Normalize the quaternion
         }
         else if (Input.GetKey(KeyCode.R))
         {
-            targetRotation = Quaternion.Euler(0,gameObject.transform.rotation.y,0);
+            targetRotation = Quaternion.Euler(0, gameObject.transform.rotation.eulerAngles.y, 0);
         }
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSmoothness * Time.deltaTime);
     }
+
 
 
     // not reccommened as makes moving rotation wanky allot  and may ruin players expierce 

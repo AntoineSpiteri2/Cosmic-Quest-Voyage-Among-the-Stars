@@ -51,7 +51,7 @@ public class astroid : MonoBehaviour
     {
         GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -speed * Time.deltaTime);
 
-        if (gameObject.transform.position.z < -100 )
+        if (gameObject.transform.position.z < -200 )
         {
             Destroy(gameObject);
         }
@@ -61,6 +61,8 @@ public class astroid : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            other.gameObject.GetComponent<AudioSource>().Play();
+
             GameManager.Instance.ReducePlayer(Dmg);
             Destroy(gameObject);
         }

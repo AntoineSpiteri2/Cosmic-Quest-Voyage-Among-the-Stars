@@ -59,6 +59,8 @@ public class TimerManager : MonoBehaviour
     private void GameOver()
     {
         GameManager.Instance.ReducePlayer(100);
+        Cursor.lockState = CursorLockMode.None;
+
         Debug.Log("Game Over!");
         // Implement your game over logic here
     }

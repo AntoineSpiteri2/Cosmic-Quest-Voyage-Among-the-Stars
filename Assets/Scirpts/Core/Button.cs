@@ -36,12 +36,13 @@ public class Button : MonoBehaviour
                 break;
             case ActionType.retry:
                 // Load your scene here. Replace "YourSceneName" with the name of your scene
+                GameData.PlayerHealth = 100;
+                GameData.rocksCollected = 0;
                 SceneManager.LoadScene(GameData.LastScene);
                 break;
             case ActionType.Quit:
                 // Quit the game
 
-                UnityEditor.EditorApplication.isPlaying = false;
 
                 Application.Quit();
                 break;

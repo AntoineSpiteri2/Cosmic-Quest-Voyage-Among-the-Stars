@@ -16,6 +16,7 @@ public class DustStrom : MonoBehaviour
 
     void Start()
     {
+        dmg = GameData.MarsDmg;
         if (terrain != null)
         {
             terrainSize = terrain.terrainData.size;
@@ -72,17 +73,10 @@ public class DustStrom : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            other.gameObject.GetComponent<AudioSource>().Play();
             GameManager.Instance.ReducePlayer(dmg);
 
         }
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            // Remove or reduce the hazard effect from the player
-            // Example: Restore movement speed, etc.
-        }
-    }
 }

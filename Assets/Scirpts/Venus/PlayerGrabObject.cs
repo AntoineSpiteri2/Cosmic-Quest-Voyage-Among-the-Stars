@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,10 @@ public class PlayerGrabObject : MonoBehaviour
     public Transform PlayerTrans;
     public float range = 3f;
     public float go = 100f;
+
+    public GameObject panel;
+
+    public GameObject hinttext;
 
     public GameObject heldObject;
     public bool isObjectHeld = false;
@@ -56,6 +61,10 @@ public class PlayerGrabObject : MonoBehaviour
             heldObject = hit.transform.gameObject;
             isObjectHeld = true;
 
+
+                SetHintText(heldObject);
+            
+
             Rigidbody rb = heldObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -64,6 +73,29 @@ public class PlayerGrabObject : MonoBehaviour
                 rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             }
         }
+    }
+
+    private void SetHintText(GameObject element)
+    {
+        string hint = "";
+        switch (element.name)
+        {
+            case "Carb dioxode(Clone)":
+                hint = "This gas is like a warm blanket and likes being around water. Find the water container for this one! Or, it can also go where the air is mostly made of a super quiet gas."; // Replace with actual hint
+                break;
+            case "Nitrogen(Clone)":
+                hint = "Nitrogen is all around us in the air but doesn't make much noise. It can visit the container that has a gas which is very quiet and noble!"; // Replace with actual hint
+                break;
+            case "Sulfer(Clone)":
+                hint = "This gas can be stinky like rotten eggs. It should go to the container that's looking for a gas that's like a warm blanket for our planet!"; // Replace with actual hint
+                break;
+            case "water(Clone)":
+                hint = "Water vapor is what you see when water gets heated up and turns into clouds. It goes into the container that loves smelly gases from volcanoes!"; // Replace with actual hint
+                break;
+
+        }
+
+        hinttext.GetComponent<TextMeshProUGUI>().text = hint;
     }
 
     private void Drop()

@@ -85,20 +85,33 @@ public static class GameData
 
     public static int ammountofDustStorms { get; set; }
     public static int rocksCollected { get; set; }
+    public static int MarsDmg { get; set; }
+
+
+    public static float detectionRange { get; set; }
+    //public float detectionRange = 15f;
+
+    public static float attackRange { get; set; }
+
+    //public float attackRange = 10f;
+
+    public static float patrolSpeed { get; set; }
+
+    //public float patrolSpeed = 3.5f;
+
+    public static float chaseSpeed { get; set; }
 
 
 
-    public static void SaveHighScore(int score)
-    {
-        PlayerPrefs.SetInt("HighScore", score);
-        PlayerPrefs.Save(); // Save PlayerPrefs changes
-    }
+    //public float chaseSpeed = 5.5f;
+
+    public static float shootingCooldown { get; set; }
+
+    //public float shootingCooldown = 2.0f;
 
 
-    public static int LoadHighScore()
-    {
-        return PlayerPrefs.GetInt("HighScore", 0); // 0 is the default value if no high score is set
-    }
+
+
 
 
 }

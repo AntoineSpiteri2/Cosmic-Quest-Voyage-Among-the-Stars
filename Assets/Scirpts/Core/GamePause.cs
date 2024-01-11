@@ -86,7 +86,6 @@ public class GamePause : MonoBehaviour
     public void Quit()
     {
         TogglePause();
-        UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
 

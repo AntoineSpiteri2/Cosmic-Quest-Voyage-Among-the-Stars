@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
                 if (GameData.Difficultysetter.ToString() == "Easy")
                 {
                     GameData.PlayerHealth = 100;
-                    GameData.SpawnRate = 3;
+                    GameData.SpawnRate = 1.5F;
                     GameData.Astrodmg = 5;
                     GameData.MaxSpeedAstro = 750f;
                     GameData.MinSpeedAstro = 500f;
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
                 else if (GameData.Difficultysetter.ToString() == "Medium")
                 {
                     GameData.PlayerHealth = 100;
-                    GameData.SpawnRate = 1.5f;
+                    GameData.SpawnRate = 0.5f;
                     GameData.Astrodmg = 10;
                     GameData.MaxSpeedAstro = 1000;
                     GameData.MinSpeedAstro = 750f;
@@ -85,19 +85,19 @@ public class GameManager : MonoBehaviour
             case "Venus":
                 if (GameData.Difficultysetter.ToString() == "Easy")
                 {
-                    GameData.TimerSeconds = 400;
+                    GameData.TimerSeconds = 300;
 
                 }
                 else if (GameData.Difficultysetter.ToString() == "Medium")
                 {
-                    GameData.TimerSeconds = 200;
+                    GameData.TimerSeconds = 260;
 
 
                 }
                 else
                 {
 
-                    GameData.TimerSeconds = 100;
+                    GameData.TimerSeconds = 250;
 
 
                 }
@@ -105,19 +105,19 @@ public class GameManager : MonoBehaviour
             case "Earth":
                 if (GameData.Difficultysetter.ToString() == "Easy")
                 {
-                    GameData.TimerSeconds = 400;
+                    GameData.TimerSeconds = 300;
 
                 }
                 else if (GameData.Difficultysetter.ToString() == "Medium")
                 {
-                    GameData.TimerSeconds = 200;
+                    GameData.TimerSeconds = 260;
 
 
                 }
                 else
                 {
 
-                    GameData.TimerSeconds = 100;
+                    GameData.TimerSeconds = 180;
 
 
                 }
@@ -126,14 +126,40 @@ public class GameManager : MonoBehaviour
                 if (GameData.Difficultysetter.ToString() == "Easy")
                 {
                     GameData.ammountofDustStorms = 500;
+                    GameData.MarsDmg = 5;
+                    GameData.detectionRange = 30;
+                    GameData.attackRange = 15;
+                    GameData.patrolSpeed = 3.5f;
+                    GameData.chaseSpeed = 7;
+                    GameData.shootingCooldown = 5;
+
                 }
                 else if (GameData.Difficultysetter.ToString() == "Medium")
                 {
                     GameData.ammountofDustStorms = 1000;
+                    GameData.MarsDmg = 10;
+                    GameData.detectionRange = 40;
+                    GameData.attackRange = 15;
+                    GameData.patrolSpeed = 5f;
+                    GameData.chaseSpeed = 8;
+                    GameData.shootingCooldown = 2.5f;
+
+
+
+
                 }
                 else
                 {
                     GameData.ammountofDustStorms = 1500;
+                    GameData.MarsDmg = 20;
+                    GameData.detectionRange = 50;
+                    GameData.attackRange = 15;
+                    GameData.patrolSpeed = 7.5f;
+                    GameData.chaseSpeed = 9;
+                    GameData.shootingCooldown = 1f;
+
+
+
                 }
                 break;
         }
