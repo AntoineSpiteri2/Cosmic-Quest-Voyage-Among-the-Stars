@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Card : MonoBehaviour
 {
@@ -34,13 +36,16 @@ public class Card : MonoBehaviour
 
     public Material material;
 
-
+    public GameObject[] moves;
+    private TextMeshProUGUI movesText;
 
 
 
     private void Start()
     {
         this.gameObject.name = cardType.ToString();
+        moves =  GameObject.FindGameObjectsWithTag("Respawn");
+        movesText = moves[0].GetComponent<TextMeshProUGUI>();
     }
 
 
@@ -126,6 +131,14 @@ public class Card : MonoBehaviour
                 {
                     matchFound = true;
                     Debug.Log("A match");
+
+
+                    // Inside CheckForMatch method, wherever MOVES is incremented
+                    GameData.Moves += 1;
+                    Debug.Log("Moves incremented to: " + GameData.Moves);
+                    movesText.text = GameData.Moves.ToString();
+                    GameData.matches += 1; 
+
                     isaPair = true;
                     isClicked = false;
                     beingclicked = false;
@@ -133,6 +146,12 @@ public class Card : MonoBehaviour
                     otherCard.isClicked = false;
                     otherCard.beingclicked = false;
                     Card.isChecking = false;
+
+                    if (GameData.matches == 8)
+                    {
+                        OnLevelComplete();  
+
+                    }
                     break;
                 }
             }
@@ -141,6 +160,11 @@ public class Card : MonoBehaviour
         // If no match found, reset both card states
         if (!matchFound)
         {
+            // Inside CheckForMatch method, wherever MOVES is incremented
+            GameData.Moves += 1;
+            Debug.Log("Moves incremented to: " + GameData.Moves);
+            movesText.text = GameData.Moves.ToString();
+
             Debug.Log("Not a match");
             Debug.Log(gameObject.name);
 
@@ -203,6 +227,16 @@ public class Card : MonoBehaviour
         {
             isChecking = false;
         }
+    }
+
+    public void OnLevelComplete()
+    {
+        GameData.LevelsCompleted++;
+        GameData.CurrentLevel++; // Assuming next level is the current level after completion
+        GameData.NumberOfRetries = 0;
+        SceneManager.LoadScene("SolarSystem");
+
+        // Load next level or handle completion...
     }
 
 }

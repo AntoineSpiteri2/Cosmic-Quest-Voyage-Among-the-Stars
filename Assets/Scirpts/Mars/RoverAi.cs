@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class RoverAi : MonoBehaviour
 {
@@ -56,6 +57,17 @@ public class RoverAi : MonoBehaviour
                 rigidbody.MovePosition(nextPosition);
                 RotateParentTowardsMovementDirection();
             }
+
+        }
+
+
+        if (!isPlayerControlling && !navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+        {
+            if (!navMeshAgent.hasPath || navMeshAgent.velocity.sqrMagnitude == 0f)
+            {
+                // Rover has reached the destination
+                OnLevelComplete();
+            }
         }
     }
 
@@ -83,6 +95,16 @@ public class RoverAi : MonoBehaviour
         }
     }
 
+
+
+    public void OnLevelComplete()
+    {
+        GameData.LevelsCompleted++;
+        GameData.CurrentLevel++; 
+        GameData.NumberOfRetries = 0;
+        SceneManager.LoadScene("Win");
+
+    }
 
 }
 

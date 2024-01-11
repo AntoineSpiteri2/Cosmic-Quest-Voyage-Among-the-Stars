@@ -15,7 +15,8 @@ public class GoToScene : MonoBehaviour
         SpaceCenter,
         Venus,
         Main,
-        Quit
+        Quit,
+        Retry
     }
 
 
@@ -33,7 +34,17 @@ public class GoToScene : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
 
-        SceneManager.LoadScene(SceneToLoad.ToString());
+        if (SceneToLoad.ToString() == "Retry")
+        {
+            SceneManager.LoadScene(GameData.LastScene.ToString());
+
+        } else
+        {
+
+            SceneManager.LoadScene(SceneToLoad.ToString());
+
+        }
+
 
     }
 

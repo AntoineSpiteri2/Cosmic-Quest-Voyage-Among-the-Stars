@@ -60,6 +60,7 @@ public class SpaceShipMovement : MonoBehaviour
             }
         }
 
+
         rb.velocity = moveDirection * currentSpeed * Time.deltaTime;
     }
 

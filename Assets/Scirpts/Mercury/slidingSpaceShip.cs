@@ -45,7 +45,19 @@ public class slidingSpaceShip : MonoBehaviour
         if (gameObject.transform.position.z >= 70)
         {
             Debug.Log("going to solarsystem");
-            SceneManager.LoadScene("SolarSystem");
+            OnLevelComplete();
+
         }
     }
+    public void OnLevelComplete()
+    {
+        GameData.LevelsCompleted++;
+        GameData.CurrentLevel++; // Assuming next level is the current level after completion
+        GameData.NumberOfRetries = 0;
+        SceneManager.LoadScene("SolarSystem");
+
+        // Load next level or handle completion...
+    }
+
+
 }

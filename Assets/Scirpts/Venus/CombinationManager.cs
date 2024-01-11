@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CombinationManager : MonoBehaviour
 {
@@ -28,7 +29,14 @@ public class CombinationManager : MonoBehaviour
     {
         if (other.gameObject.tag == elementTypeAccpeted.ToString())
         {
+            GameData.combinationSuccess += 1;
+            Debug.Log("Good combintion");
             Destroy(other.gameObject);
+
+            if (GameData.combinationSuccess == 5)
+            {
+                OnLevelComplete();
+            }
         } else
         {
             Destroy(other.gameObject);
@@ -37,5 +45,15 @@ public class CombinationManager : MonoBehaviour
         }
     }
 
+
+    public void OnLevelComplete()
+    {
+        GameData.LevelsCompleted++;
+        GameData.CurrentLevel++; // Assuming next level is the current level after completion
+        GameData.NumberOfRetries = 0;
+        Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene("SolarSystem");
+
+    }
 
 }

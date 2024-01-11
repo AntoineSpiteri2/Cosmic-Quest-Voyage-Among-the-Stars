@@ -25,6 +25,9 @@ public class CmareaZoomEffect : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0) return;
+         // to prevent errors as the camera freezes if I pause in the pause menu
+
         // Calculate speed
         float distance = Vector3.Distance(targetObject.transform.position, lastPosition);
         float instantSpeed = distance / Time.deltaTime;

@@ -59,6 +59,7 @@ public class CrowdSim : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0) return;
         // Update Agent Position
         if (!agent.pathPending && !agent.hasPath && Vector3.Distance(transform.position, agent.destination) < waypointThreshold)
         {

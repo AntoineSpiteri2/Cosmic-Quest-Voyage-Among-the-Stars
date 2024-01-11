@@ -6,6 +6,7 @@ public class DustStrom : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public Vector3 moveDirection;
+    public int dmg;
     public Terrain terrain; // Reference to the Terrain
     public float changeDirectionInterval = 5f; // Time in seconds to change direction
     public float heightAboveTerrain = 1f; // Height above the terrain
@@ -71,8 +72,8 @@ public class DustStrom : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Apply hazard effect to the player
-            // Example: Reduce player health, slow down movement, etc.
+            GameManager.Instance.ReducePlayer(dmg);
+
         }
     }
 

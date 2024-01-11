@@ -16,6 +16,8 @@ public class SpawnRocks : MonoBehaviour
     void Start()
     {
 
+        NumberofDuststroms = GameData.ammountofDustStorms;
+
         Terrain terrain = GetComponent<Terrain>();
 
         

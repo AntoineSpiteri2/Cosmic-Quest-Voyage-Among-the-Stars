@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class waypoint : MonoBehaviour
     public Transform target;
     public CinemachineVirtualCamera cinemachineCamera;
 
+
     public GoToScene sceneLoader;
 
     public GameObject textMsg;
@@ -24,53 +26,61 @@ public class waypoint : MonoBehaviour
 
 
 
-    private void Update()
+    private void FixedUpdate()
     {
-
-
-        // Get the Camera that Cinemachine is sending its output to
-        Camera camera = CinemachineCore.Instance.GetActiveBrain(0).OutputCamera;
-
-
-        // Determine if the target is behind the camera
-        Vector3 toTarget = (target.position - camera.transform.position).normalized;
-        bool isBehind = Vector3.Dot(toTarget, camera.transform.forward) < 0;
-
-        if (isBehind)
+        if (Time.timeScale != 0)
         {
-            // Place the image in a corner of the screen
-            img.transform.position = new Vector2(50, 50); // Adjust these values as needed
-        }
-        else
-        {
-            // Normal behavior when the target is in front
-            Vector2 pos = camera.WorldToScreenPoint(target.position);
-            pos.x = Mathf.Clamp(pos.x, img.GetPixelAdjustedRect().width / 2, Screen.width - img.GetPixelAdjustedRect().width / 2);
-            pos.y = Mathf.Clamp(pos.y, img.GetPixelAdjustedRect().height / 2, Screen.height - img.GetPixelAdjustedRect().height / 2);
-            img.transform.position = pos;
+
+
+
+            // Get the Camera that Cinemachine is sending its output to
+            Camera camera = CinemachineCore.Instance.GetActiveBrain(0).OutputCamera;
+
+
+            // Determine if the target is behind the camera
+            Vector3 toTarget = (target.position - camera.transform.position).normalized;
+            bool isBehind = Vector3.Dot(toTarget, camera.transform.forward) < 0;
+
+            if (isBehind)
+            {
+                // Place the image in a corner of the screen
+                img.transform.position = new Vector2(50, 50); // Adjust these values as needed
+            }
+            else if (Time.timeScale != 0)
+            {
+                // Normal behavior when the target is in front
+                Vector2 pos = camera.WorldToScreenPoint(target.position);
+                pos.x = Mathf.Clamp(pos.x, img.GetPixelAdjustedRect().width / 2, Screen.width - img.GetPixelAdjustedRect().width / 2);
+                pos.y = Mathf.Clamp(pos.y, img.GetPixelAdjustedRect().height / 2, Screen.height - img.GetPixelAdjustedRect().height / 2);
+                img.transform.position = pos;
+            }
         }
     }
 
 
     void OnMouseDown()
     {
-        string clickedName = gameObject.name;
-        string objectiveText = Objective.GetComponent<TextMeshProUGUI>().text;
 
-        // Special case for "Atmosphere" clicked
-        if (clickedName == "Atmosphere")
+        if (Time.timeScale != 0)
         {
-            clickedName = "Earth";
-        }
+            string clickedName = gameObject.name;
+            string objectiveText = Objective.GetComponent<TextMeshProUGUI>().text;
 
-        // Check if the clicked planet is the current objective
-        if (clickedName != objectiveText)
-        {
-            SetMessage($"Go Complete {objectiveText} first");
-        }
-        else
-        {
-            LoadNextScene(clickedName);
+            // Special case for "Atmosphere" clicked
+            if (clickedName == "Atmosphere")
+            {
+                clickedName = "Earth";
+            }
+
+            // Check if the clicked planet is the current objective
+            if (clickedName != objectiveText)
+            {
+                SetMessage($"Go Complete {objectiveText} first");
+            }
+            else
+            {
+                LoadNextScene(clickedName);
+            }
         }
     }
 
@@ -89,15 +99,23 @@ public class waypoint : MonoBehaviour
         {
             case "Mercury":
                 nextObjective = "Venus";
+                GameData.Objective = nextObjective;
+
                 break;
             case "Venus":
                 nextObjective = "Earth";
+                GameData.Objective = nextObjective;
+
                 break;
             case "Earth":
                 nextObjective = "Mars";
+                GameData.Objective = nextObjective;
+
                 break;
             case "Mars":
                 nextObjective = "Complete";
+                GameData.Objective = nextObjective;
+
                 break;
         }
 

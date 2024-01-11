@@ -30,6 +30,13 @@ public class PlayerGrabObject : MonoBehaviour
         if (isObjectHeld)
         {
             Vector3 newPosition = camera.transform.position + camera.transform.forward * go;
+            // Prevent the object from going below the player's feet
+            newPosition.y = Mathf.Max(newPosition.y, PlayerTrans.position.y);
+            if (heldObject == null)
+            {
+                isObjectHeld = false;
+            }
+
             Rigidbody rb = heldObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -37,6 +44,7 @@ public class PlayerGrabObject : MonoBehaviour
             }
         }
     }
+
 
     private void StartPickup()
     {
